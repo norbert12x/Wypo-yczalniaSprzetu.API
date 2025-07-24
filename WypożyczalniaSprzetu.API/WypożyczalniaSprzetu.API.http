@@ -1,0 +1,6 @@
+@WypożyczalniaSprzetu.API_HostAddress = http://localhost:5032
+
+GET {{WypożyczalniaSprzetu.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

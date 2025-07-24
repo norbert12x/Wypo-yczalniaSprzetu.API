@@ -1,24 +1,19 @@
-using WypozyczalniaSprzetu.API.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Configuration;
+using System.Text;
+using WypozyczalniaSprzetu.API.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using AutoMapper;
-using WypozyczalniaSprzetu.API.Profiles;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Dodanie DbContext z połączeniem do SQL Server
+// Dodaj DbContext z połączeniem do SQL Server
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Dodanie AutoMappera — przeszukuje wszystkie assembly
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
-
-// Dodanie JWT Bearer Authentication
+// Dodaj JWT Bearer Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -34,26 +29,35 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Dodanie obsługi cyklicznych zależności w JSON
+// Dodaj CORS (zezwala na dostęp z dowolnego źródła)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
+// Dodaj obsługę cyklicznych zależności w serializacji JSON
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-        options.JsonSerializerOptions.WriteIndented = true;
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     });
 
-// Dodanie Swaggera z obsługą autoryzacji JWT
+// Dodaj Swaggera
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
-        Description = "Wprowadź token JWT z prefiksem 'Bearer'. Przykład: Bearer {twój_token}",
+        Description = "Please enter the JWT Bearer token",
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey,
-        BearerFormat = "JWT",
-        Scheme = "Bearer"
+        BearerFormat = "JWT"
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -67,14 +71,14 @@ builder.Services.AddSwaggerGen(c =>
                     Id = "Bearer"
                 }
             },
-            Array.Empty<string>()
+            new string[] {}
         }
     });
 });
 
 var app = builder.Build();
 
-// Włączenie Swaggera w trybie developerskim
+// Użyj Swaggera w trybie developerskim
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -83,8 +87,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); // Najpierw authentication
-app.UseAuthorization();  // Potem authorization
+// Włącz CORS
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

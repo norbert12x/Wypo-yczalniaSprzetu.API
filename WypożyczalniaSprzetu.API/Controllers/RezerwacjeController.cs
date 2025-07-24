@@ -135,7 +135,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
                 DataOd = dto.DataOd ?? DateTime.Now,
                 DataDo = dto.DataDo ?? DateTime.Now,
                 DataRezerwacji = DateTime.Now,
-                CzyAnulowana = dto.CzyAnulowana ?? false,
                 KlientId = dto.KlientId,
                 SprzetId = dto.SprzetId
             };

@@ -27,7 +27,8 @@ public class SprzetController : ControllerBase
                 Id = s.Id,
                 Nazwa = s.Nazwa,
                 Opis = s.Opis,
-                Dostepny = s.Dostepny
+                Dostepny = s.Dostepny,
+                Cena = s.Cena
             })
             .ToListAsync();
 
@@ -45,12 +46,37 @@ public class SprzetController : ControllerBase
                 Id = s.Id,
                 Nazwa = s.Nazwa,
                 Opis = s.Opis,
-                Dostepny = s.Dostepny
+                Dostepny = s.Dostepny,
+                Cena = s.Cena
             })
             .ToListAsync();
 
         return Ok(sprzety);
     }
+
+    [HttpGet("{equipmentId}")]
+    public async Task<ActionResult<SprzetReadDto>> GetEquipmentById(int equipmentId)
+    {
+        var sprzet = await _context.Sprzety
+            .Where(s => s.Id == equipmentId)
+            .Select(s => new SprzetReadDto
+            {
+                Id = s.Id,
+                Nazwa = s.Nazwa,
+                Opis = s.Opis,
+                Cena = s.Cena, // Dodaj cenę sprzętu
+                Dostepny = s.Dostepny
+            })
+            .FirstOrDefaultAsync();
+
+        if (sprzet == null)
+        {
+            return NotFound(); // Jeśli nie znaleziono sprzętu, zwróć 404
+        }
+
+        return Ok(sprzet); // Jeśli znaleziono, zwróć dane sprzętu
+    }
+
 
     // Tworzenie nowego sprzętu
     [HttpPost]
@@ -61,7 +87,8 @@ public class SprzetController : ControllerBase
             Nazwa = dto.Nazwa,
             Opis = dto.Opis,
             Dostepny = dto.Dostepny,
-            KategorieSprzetuId = dto.KategorieSprzetuId
+            KategorieSprzetuId = dto.KategorieSprzetuId,
+            Cena = dto.Cena
         };
 
         _context.Sprzety.Add(nowySprzet);

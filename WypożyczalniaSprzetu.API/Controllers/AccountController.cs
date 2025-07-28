@@ -156,6 +156,8 @@ namespace WypozyczalniaSprzetu.API.Controllers
             if (czyZajety)
                 return BadRequest("Sprzęt jest niedostępny w wybranym terminie.");
 
+            sprzet.Dostepny = false;
+            await _context.SaveChangesAsync();
             var nowaRezerwacja = new Rezerwacja
             {
                 KlientId = userId,

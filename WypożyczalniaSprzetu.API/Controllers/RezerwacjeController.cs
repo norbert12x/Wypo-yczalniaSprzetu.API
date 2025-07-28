@@ -17,51 +17,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
             _context = context;
         }
 
-        // GET: api/Rezerwacje
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<RezerwacjaReadDto>>> GetRezerwacje()
-        {
-            var rezerwacje = await _context.Rezerwacje
-                .Include(r => r.Klient)
-                .Include(r => r.Sprzet)
-                .ThenInclude(s => s.KategorieSprzetu)
-                .ToListAsync();
-
-            var rezerwacjeDto = rezerwacje.Select(r => new RezerwacjaReadDto
-            {
-                Id = r.Id,
-                DataOd = r.DataOd,
-                DataDo = r.DataDo,
-                DataRezerwacji = r.DataRezerwacji,
-                CzyAnulowana = r.CzyAnulowana,
-                KlientId = r.KlientId,
-                Klient = r.Klient != null ? new KlientReadDto
-                {
-                    IdKlienta = r.Klient.IdKlienta,
-                    Imie = r.Klient.Imie,
-                    Nazwisko = r.Klient.Nazwisko,
-                    Email = r.Klient.Email,
-                    Telefon = r.Klient.Telefon
-                } : null,  
-                SprzetId = r.SprzetId,
-                Sprzet = r.Sprzet != null ? new SprzetReadDto
-                {
-                    Id = r.Sprzet.Id,
-                    Nazwa = r.Sprzet.Nazwa,
-                    Opis = r.Sprzet.Opis,
-                    Dostepny = r.Sprzet.Dostepny,
-                    KategorieSprzetuId = r.Sprzet.KategorieSprzetuId,
-                    KategorieSprzetu = r.Sprzet.KategorieSprzetu != null ? new KategorieSprzetuReadDto
-                    {
-                        Id = r.Sprzet.KategorieSprzetu.Id,
-                        Nazwa = r.Sprzet.KategorieSprzetu.Nazwa
-                    } : null  
-                } : null // Dodajemy sprawdzenie null dla Sprzetu
-            }).ToList();
-
-            return Ok(rezerwacjeDto);
-        }
-
 
         // GET: api/Rezerwacje/{id}
         [HttpGet("{id}")]
@@ -210,6 +165,21 @@ namespace WypozyczalniaSprzetu.API.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet("sprzet/{sprzetId}/daty")]
+        public async Task<ActionResult<IEnumerable<RezerwacjaZakresDto>>> GetDatyRezerwacjiSprzetu(int sprzetId)
+        {
+            var zakresy = await _context.Rezerwacje
+                .Where(r => r.SprzetId == sprzetId && !r.CzyAnulowana)
+                .Select(r => new RezerwacjaZakresDto
+                {
+                    DataOd = r.DataOd,
+                    DataDo = r.DataDo
+                })
+                .ToListAsync();
+
+            return Ok(zakresy);
         }
 
 

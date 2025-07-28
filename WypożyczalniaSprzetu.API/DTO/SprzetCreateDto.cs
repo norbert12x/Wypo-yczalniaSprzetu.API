@@ -6,5 +6,6 @@
         public string Opis { get; set; }
         public bool Dostepny { get; set; }
         public int KategorieSprzetuId { get; set; }
+        public decimal Cena { get; set; }  
     }
 }

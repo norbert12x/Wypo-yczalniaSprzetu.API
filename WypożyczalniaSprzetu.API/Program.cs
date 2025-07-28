@@ -6,13 +6,14 @@ using System.Text;
 using WypozyczalniaSprzetu.API.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using WypozyczalniaSprzetu.API.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Dodaj DbContext z połączeniem do SQL Server
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile).Assembly);
 // Dodaj JWT Bearer Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

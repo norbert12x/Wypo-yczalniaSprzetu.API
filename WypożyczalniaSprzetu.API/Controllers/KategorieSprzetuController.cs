@@ -22,7 +22,7 @@ namespace WypozyczalniaSprzetu.API.Controllers
         public async Task<ActionResult<IEnumerable<KategorieSprzetuReadDto>>> GetAll()
         {
             var kategorie = await _context.KategorieSprzetu
-                .Include(k => k.Sprzety) // Ładowanie powiązanych sprzętów
+                .Include(k => k.Sprzety) 
                 .Select(k => new KategorieSprzetuReadDto
                 {
                     Id = k.Id,
@@ -45,7 +45,7 @@ namespace WypozyczalniaSprzetu.API.Controllers
         public async Task<ActionResult<KategorieSprzetuReadDto>> GetById(int id)
         {
             var kategoria = await _context.KategorieSprzetu
-                .Include(k => k.Sprzety) // Ładowanie powiązanych sprzętów
+                .Include(k => k.Sprzety) 
                 .FirstOrDefaultAsync(k => k.Id == id);
 
             if (kategoria == null)

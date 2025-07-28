@@ -6,7 +6,6 @@ function Login() {
   const [email, setEmail] = useState('');
   const [haslo, setHaslo] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [token, setToken] = useState(null);  // Stan do przechowywania tokena
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,16 +29,9 @@ function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        const receivedToken = data.token;  // Zakładamy, że token jest w odpowiedzi w polu "token"
-        
-        // Zapisz token w localStorage
-        localStorage.setItem('authToken', receivedToken);
-        console.log("Token zapisany: ", data.token);
-        
-        // Ustaw token w stanie
-        setToken(receivedToken);
+        const receivedToken = data.token;  
 
-        // Logowanie udane, przekieruj na stronę główną
+        localStorage.setItem('authToken', receivedToken);
         localStorage.setItem('loggedIn', true);
         localStorage.setItem('userEmail', email);
         navigate('/');
@@ -75,20 +67,12 @@ function Login() {
           />
         </div>
         <p className="register-link">
-  Nie masz konta? <span onClick={() => navigate('/register')}>Zarejestruj się</span>
-</p>
+          Nie masz konta? <span onClick={() => navigate('/register')}>Zarejestruj się</span>
+        </p>
 
         {errorMessage && <div className="error">{errorMessage}</div>}
         <button type="submit">Zaloguj</button>
       </form>
-
-      {/* Wyświetl token na środku ekranu dla testów */}
-      {token && (
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'yellow', padding: '20px', textAlign: 'center' }}>
-          <h3>Token:</h3>
-          <p>{token}</p>
-        </div>
-      )}
     </div>
   );
 }

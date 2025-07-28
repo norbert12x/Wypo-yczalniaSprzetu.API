@@ -84,7 +84,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
             if (czySprzetZarezerwowany)
                 return BadRequest("Sprzęt jest już zarezerwowany w tym okresie.");
 
-            // Tworzymy nową rezerwację
             var rezerwacja = new Rezerwacja
             {
                 DataOd = dto.DataOd ?? DateTime.Now,
@@ -97,7 +96,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
             _context.Rezerwacje.Add(rezerwacja);
             await _context.SaveChangesAsync();
 
-            // Zmieniamy dostępność sprzętu na 'false'
             sprzet.Dostepny = false;
             await _context.SaveChangesAsync();
 
@@ -157,7 +155,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
 
             await _context.SaveChangesAsync();
 
-            // Zmiana dostępności sprzętu na 'false' przy zaktualizowanej rezerwacji
             var sprzet = await _context.Sprzety.FindAsync(rezerwacja.SprzetId);
             if (sprzet != null && !sprzet.Dostepny)
                 sprzet.Dostepny = false;
@@ -193,7 +190,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
 
             _context.Rezerwacje.Remove(rezerwacja);
 
-            // Zmieniamy dostępność sprzętu na 'true' przy usunięciu rezerwacji
             var sprzet = await _context.Sprzety.FindAsync(rezerwacja.SprzetId);
             if (sprzet != null)
                 sprzet.Dostepny = true;

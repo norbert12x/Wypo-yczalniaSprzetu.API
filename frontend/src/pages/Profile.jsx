@@ -57,7 +57,7 @@ function Profile() {
           }
         }
       }
-      setSprzety(sprzetyMap); // Aktualizujemy stan
+      setSprzety(sprzetyMap);
     };
 
     fetchUserData();
@@ -65,7 +65,7 @@ function Profile() {
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
-    navigate('/login'); // lub na inną stronę logowania
+    navigate('/login'); 
   };
 
   const goHome = () => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // używamy tych samych stylów co logowanie
+import './Login.css'; 
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -37,7 +37,7 @@ function Register() {
       if (response.ok) {
         const data = await response.json();
         setSuccessMessage(data.message || 'Rejestracja zakończona sukcesem!');
-        setTimeout(() => navigate('/login'), 2000); // przekierowanie po 2 sek
+        setTimeout(() => navigate('/login'), 2000);
       } else {
         const error = await response.text();
         setErrorMessage(error || 'Błąd podczas rejestracji');

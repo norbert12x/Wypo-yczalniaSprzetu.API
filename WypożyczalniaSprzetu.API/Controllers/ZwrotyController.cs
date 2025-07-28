@@ -17,7 +17,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
             _context = context;
         }
 
-        // GET: api/Zwroty
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Zwrot>>> GetZwroty()
         {
@@ -25,7 +24,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
             return Ok(zwroty);
         }
 
-        // GET: api/Zwroty/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Zwrot>> GetZwrot(int id)
         {
@@ -39,7 +37,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
             return Ok(zwrot);
         }
 
-        // POST: api/Zwroty
         [HttpPost]
         public async Task<ActionResult<Zwrot>> CreateZwrot(ZwrotCreateDto dto)
         {
@@ -63,7 +60,7 @@ namespace WypozyczalniaSprzetu.API.Controllers
             var sprzet = rezerwacja.Sprzet;
             if (sprzet != null)
             {
-                sprzet.Dostepny = true;  // Sprzęt staje się dostępny po zwrocie
+                sprzet.Dostepny = true;  
             }
 
             await _context.SaveChangesAsync();

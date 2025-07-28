@@ -64,17 +64,17 @@ public class SprzetController : ControllerBase
                 Id = s.Id,
                 Nazwa = s.Nazwa,
                 Opis = s.Opis,
-                Cena = s.Cena, // Dodaj cenę sprzętu
+                Cena = s.Cena, 
                 Dostepny = s.Dostepny
             })
             .FirstOrDefaultAsync();
 
         if (sprzet == null)
         {
-            return NotFound(); // Jeśli nie znaleziono sprzętu, zwróć 404
+            return NotFound(); 
         }
 
-        return Ok(sprzet); // Jeśli znaleziono, zwróć dane sprzętu
+        return Ok(sprzet); 
     }
 
 

@@ -6,7 +6,7 @@ import './ListaSprzetow.css';
 function ListaSprzetow() {
   const { categoryId } = useParams();
   const [equipment, setEquipment] = useState([]);
-  const [categoryName, setCategoryName] = useState('');  // Nowy stan do przechowywania nazwy kategorii
+  const [categoryName, setCategoryName] = useState('');  
 
   useEffect(() => {
     // Pobierz sprzęt z danej kategorii
@@ -26,7 +26,7 @@ function ListaSprzetow() {
     axios
       .get(categoryUrl)
       .then((response) => {
-        setCategoryName(response.data.nazwa);  // Zakładamy, że odpowiedź zawiera pole 'nazwa'
+        setCategoryName(response.data.nazwa); 
       })
       .catch((error) => {
         console.error("Błąd podczas pobierania nazwy kategorii:", error);

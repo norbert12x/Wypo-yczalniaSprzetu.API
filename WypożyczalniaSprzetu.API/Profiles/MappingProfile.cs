@@ -1,5 +1,4 @@
-﻿// File: Profiles/MappingProfile.cs
-using AutoMapper;
+﻿using AutoMapper;
 using WypozyczalniaSprzetu.API.Models;
 using WypozyczalniaSprzetu.API.DTOs;
 using WypozyczalniaSprzetu.API.Controllers;
@@ -17,7 +16,6 @@ namespace WypozyczalniaSprzetu.API.Profiles
             CreateMap<Sprzet, SprzetReadDto>();
             CreateMap<Rezerwacja, RezerwacjaReadDto>();
             CreateMap<Zwrot, ZwrotReadDto>();
-            // Dodaj inne mapowania, jeśli potrzebujesz
         }
     }
 }

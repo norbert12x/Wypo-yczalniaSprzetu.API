@@ -22,7 +22,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
-        // Konstruktor, w którym wstrzykujesz IMapper
         public AccountController(ApplicationDbContext context, IConfiguration configuration, IMapper mapper)
         {
             _context = context;

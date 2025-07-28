@@ -1,0 +1,178 @@
+/* Główne style dla strony szczegółów sprzętu */
+.equipment-details {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #e6f2ff;
+}
+
+/* Nagłówek strony */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Nazwa sklepu (link) */
+.store-name {
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.store-name:hover {
+  color: #0077cc;
+}
+
+/* Przyciski w nagłówku (Profil, Wyloguj) */
+.header-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.header-buttons .btn {
+  background-color: #0077cc;  /* Niebieskie tło */
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  height: 40px;  /* Ustawienie jednolitej wysokości */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.header-buttons .btn:hover {
+  background-color: #005fa3; /* Zmiana tła przy hover */
+}
+
+/* Przycisk Wyloguj */
+/* Styl dla przycisku "Wyloguj" */
+.logout {
+  background-color: #d32f2f;  /* Ustawiamy czerwony kolor */
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+/* Styl przycisku "Wyloguj" przy hover */
+.logout:hover {
+  background-color: #b71c1c;  /* Zmienia tło na ciemniejszy czerwony przy hover */
+}
+
+/* Przycisk Powrót */
+.back-btn {
+  background-color: #0077cc;  /* Tło takie samo jak dla innych przycisków */
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #005fa3;  /* Tło zmienia się na ciemniejsze przy hover */
+}
+
+/* Kontener produktu */
+.product-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Sekcja obrazu */
+.image-section {
+  flex: 1 1 400px;
+}
+
+.image-section img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Sekcja informacji o produkcie */
+.info-section {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-title {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.product-desc {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.product-price {
+  font-size: 1.4rem;
+  color: #0077cc;
+  margin-bottom: 24px;
+}
+
+.product-price span {
+  font-weight: bold;
+}
+
+/* Przycisk Zarezerwuj */
+.reserve-btn {
+  background-color: #0077cc !important; /* Niebieskie tło, jak reszta przycisków */
+  color: rgb(255, 255, 255) !important;
+  padding: 10px 16px;  /* Zwiększone padding dla lepszego wyglądu */
+  font-size: 1rem;  /* Dopasowujemy większą czcionkę */
+  border-radius: 6px;  /* Zaokrąglone rogi */
+  border: none;  /* Bez obramowania */
+  cursor: pointer;
+  text-align: center;
+  height: 48px;  /* Zwiększona wysokość dla lepszego dopasowania */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+  width: 100%;  /* Szerokość na całą dostępną przestrzeń */
+  max-width: 250px; /* Maksymalna szerokość dla lepszej responsywności */
+  margin-top: 20px;  /* Odstęp od reszty elementów */
+}
+
+/* Hover dla przycisku Zarezerwuj */
+.reserve-btn:hover {
+  background-color: #005fa3;  /* Ciemniejsze niebieskie tło przy hover */
+}

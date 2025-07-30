@@ -47,7 +47,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
             if (rezerwacja == null)
                 return NotFound("Rezerwacja nie istnieje.");
 
-            // Tworzymy zwrot
             var zwrot = new Zwrot
             {
                 RezerwacjaId = dto.RezerwacjaId,

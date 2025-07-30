@@ -57,7 +57,6 @@ namespace WypozyczalniaSprzetu.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            // Sprawdzenie, czy klient z tym emailem istnieje
             var klient = await _context.Klienci
                 .FirstOrDefaultAsync(k => k.Email == loginDto.Email);
 

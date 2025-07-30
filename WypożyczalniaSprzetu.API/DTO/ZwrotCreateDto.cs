@@ -2,6 +2,6 @@
 {
     public class ZwrotCreateDto
     {
-        public int RezerwacjaId { get; set; }  // Id rezerwacji do zwrotu
+        public int RezerwacjaId { get; set; } 
     }
 }

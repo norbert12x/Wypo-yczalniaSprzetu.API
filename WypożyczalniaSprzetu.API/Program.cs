@@ -48,7 +48,6 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     });
 
-// Dodaj Swaggera
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -79,7 +78,6 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Użyj Swaggera w trybie developerskim
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -88,7 +86,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Włącz CORS
 app.UseCors("AllowAll");
 
 app.UseAuthentication();

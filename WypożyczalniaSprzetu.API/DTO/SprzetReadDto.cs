@@ -8,7 +8,7 @@
         public bool Dostepny { get; set; }
         public decimal Cena { get; set; }  
 
-        public int KategorieSprzetuId { get; set; }  // Dodanie tej właściwości
-        public KategorieSprzetuReadDto KategorieSprzetu { get; set; }  // Możesz również dodać kategorię sprzętu, jeżeli chcesz
+        public int KategorieSprzetuId { get; set; }  /
+        public KategorieSprzetuReadDto KategorieSprzetu { get; set; }  
     }
 }
